@@ -98,5 +98,6 @@ Released under the **Apache 2.0 License** to ensure open-source adoption and com
 ---
 
 ## 👥 Contributors
-- **Naveen Kumar Senthil Kumar**  
-- **Dhirajzen Bagawath Geetha Kumaravel**
+- **Naveen Kumar Senthil Kumar** ([ns6503@nyu.edu](mailto:ns6503@nyu.edu))  
+- **Dhirajzen Bagawath Geetha Kumaravel** ([db5309@nyu.edu](mailto:db5309@nyu.edu))  
+
