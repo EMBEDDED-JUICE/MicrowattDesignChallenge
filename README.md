@@ -1,75 +1,62 @@
-# OpenFrame Overview
+Project Proposal: Transparent Self-Monitoring Microwatt
 
-The OpenFrame Project provides an empty harness chip that differs significantly from the Caravel and Caravan designs. Unlike Caravel and Caravan, which include integrated SoCs and additional features, OpenFrame offers only the essential padframe, providing users with a clean slate for their custom designs.
+Hackathon: Microwatt Momentum – OpenPOWER HW Design Hackathon
 
-<img width="256" alt="Screenshot 2024-06-24 at 12 53 39 PM" src="https://github.com/efabless/openframe_timer_example/assets/67271180/ff58b58b-b9c8-4d5e-b9bc-bf344355fa80">
+Theme: "Microwatt for the open computing era"
 
-## Key Characteristics of OpenFrame
+# Abstract
 
-1. **Minimalist Design:** 
-   - No integrated SoC or additional circuitry.
-   - Only includes the padframe, a power-on-reset circuit, and a digital ROM containing the 32-bit project ID.
+This project enhances the open-source Microwatt POWER CPU core by integrating a real-time on-chip telemetry and debug engine. The engine continuously monitors pipeline activity, instruction flow, and performance metrics such as instruction-per-cycle (IPC), branch mispredictions, stall cycles, and memory accesses. It exposes this information through memory-mapped registers accessible to software and provides an optional trace buffer for instruction history.  
+<br/>The goal is to make Microwatt more developer-friendly by providing built-in observability, enabling researchers, FPGA developers, and students to easily debug, profile, and optimize workloads running on Microwatt without relying on external debug tools.  
+<br/>This proposal addresses the hackathon’s theme by advancing Microwatt into the era of transparent, self-diagnosing, open CPUs — bridging the gap between academic research and practical deployment.
 
-2. **Padframe Compatibility:**
-   - The padframe design and pin placements match those of the Caravel and Caravan chips, ensuring compatibility and ease of transition between designs.
-   - Pin types are identical, with power and ground pins positioned similarly and the same power domains available.
+# Key Features
 
-3. **Flexibility:**
-   - Provides full access to all GPIO controls.
-   - Maximizes the user project area, allowing for greater customization and integration of alternative SoCs or user-specific projects at the same hierarchy level.
+- Performance Monitoring Counters (PMCs): IPC, branch misprediction count, stall cycles, memory access latency.
+- On-Chip Trace Buffer: Captures recent instruction PCs + opcodes, FIFO-based, triggered capture support.
+- Telemetry Export: Memory-mapped registers, C demo software for stats, optional UART/JTAG export.
+- Verification & Reproducibility: RTL-level testbenches, validation against software-instrumented models, documented OpenLane flow.
 
-4. **Simplified I/O:**
-   - Pins that previously connected to CPU functions (e.g., flash controller interface, SPI interface, UART) are now repurposed as general-purpose I/O, offering flexibility for various applications.
+# Why This Project
 
-The OpenFrame harness is ideal for those looking to implement custom SoCs or integrate user projects without the constraints of an existing SoC.
+• Practical & New: Adds observability infrastructure directly inside Microwatt.  
+• Educational Impact: Helps students and researchers learn CPU behavior.  
+• Community Benefit: Improves reproducibility for Microwatt-based designs.  
+• Feasible: Modular RTL design fits OpenFrame SoC user area with clear scope.
 
-## Features
+# Tools & Platforms
 
-1. 44 configurable GPIOs.
-2. User area of approximately 15mm².
-3. Supports digital, analog, or mixed-signal designs.
+- Microwatt CPU Core (<https://git.openpower.foundation/cores/microwatt>)
+- ChipFoundry OpenFrame SoC Platform
+- OpenPOWER ISA
+- OpenLane / chipIgnite Flow on SKY130
+- Simulation Tools: Verilator, GHDL, GTKWave
+- Software Tools: GCC for POWER, GDB
 
-# openframe_timer_example
+# Deliverables
 
-This example implements a simple timer and connects it to the GPIOs.
+- RTL code for telemetry engine + Microwatt integration
+- Testbenches for verification of counters and trace buffer
+- C demo software for telemetry access
+- Documentation of AI prompts used (if AI-assisted)
+- Open-source GitHub repository (MIT/Apache2 licensed)
+- Screenshots + demo video showing project usage
 
-## Installation and Setup
+# Project Timeline
 
-First, clone the repository:
+1. Week 1 (Proposal): Define architecture, block diagrams, set up environment
+2. Week 2–3 (Implementation): Develop counters, registers, trace buffer
+3. Week 4 (Verification): Run testbenches, integrate demo software
+4. Final Week: Prepare repo, documentation, demo video
 
-```bash
-git clone https://github.com/efabless/openframe_timer_example.git
-cd openframe_timer_example
-```
+# Judging Fit
 
-Then, download all dependencies:
+• Documentation: Clear repo structure, reproducible OpenLane flow  
+• Prompt Documentation: Full record of AI LLM prompts (if used)  
+• Code Quality: Modular, well-documented RTL  
+• Verification: Thorough test coverage  
+• Technical Merit: Extends Microwatt with an innovative monitoring subsystem
 
-```bash
-make setup
-```
+# License
 
-## Hardening the Design
-
-In this example, we will harden the timer. You will need to harden your own design similarly.
-
-```bash
-make user_proj_timer
-```
-
-Once you have hardened your design, integrate it into the OpenFrame wrapper:
-
-```bash
-make openframe_project_wrapper
-```
-
-## Important Notes
-
-1. **Connecting to Power:**
-   - Ensure your design is connected to power using the power pins on the wrapper.
-   - Use the `vccd1_connection` and `vssd1_connection` macros, which contain the necessary vias and nets for power connections.
-
-2. **Flattening the Design:**
-   - If you plan to flatten your design within the `openframe_project_wrapper`, do not buffer the analog pins using standard cells.
-
-3. **Running Custom Steps:**
-   - Execute the custom step in OpenLane that copies the power pins from the template DEF. If this step is skipped, the precheck will fail, and your design will not be powered.
+This project will be released under the Apache 2.0 License to ensure open-source adoption and community contributions.
