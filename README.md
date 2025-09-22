@@ -6,18 +6,16 @@
 ---
 
 ## 📌 Abstract
-This project enhances the open-source **Microwatt POWER CPU core** by integrating a real-time **on-chip telemetry and debug engine**. The engine continuously monitors pipeline activity, instruction flow, and performance metrics such as:
 
-- Instructions per cycle (IPC)  
-- Branch mispredictions  
-- Stall cycles  
-- Memory accesses  
+The **Transparent Self-Monitoring Microwatt** project aims to transform the open-source [Microwatt POWER CPU core](https://git.openpower.foundation/cores/microwatt) into a **self-observable and developer-friendly platform** by embedding real-time performance monitoring and telemetry capabilities directly into the CPU pipeline. While Microwatt already provides an accessible reference design for the POWER ISA, debugging and performance analysis often depend on external tools, intrusive instrumentation, or FPGA probes. This creates a barrier for students, researchers, and open-hardware developers who wish to study microarchitectural behavior or optimize workloads on resource-constrained platforms.
 
-It exposes this information through memory-mapped registers accessible to software and provides an optional trace buffer for instruction history.  
+To address this, our design introduces a **lightweight telemetry and debug subsystem** that continuously monitors key pipeline signals and records essential performance metrics. These include **instructions per cycle (IPC), branch prediction accuracy, stall cycles, and memory latency metrics**, which are critical for both academic research and practical optimization. Additionally, we implement a configurable **on-chip trace buffer** that captures a short instruction history, enabling step-by-step workload analysis without external trace hardware.  
 
-The goal is to make **Microwatt more developer-friendly** by providing built-in observability, enabling researchers, FPGA developers, and students to debug, profile, and optimize workloads without relying on external debug tools.  
+All telemetry data is made accessible through **memory-mapped registers** within the OpenFrame SoC environment, and a **C software demo** demonstrates how to retrieve and visualize this information. For extended use, telemetry can also be exported through UART or JTAG interfaces, allowing integration with standard debugging workflows.  
 
-This proposal advances Microwatt into the era of **transparent, self-diagnosing open CPUs**, bridging the gap between academic research and practical deployment.
+From a reproducibility standpoint, the project adheres to **hackathon requirements** by providing fully open-source RTL, AI prompt logs (if applicable), STA and SDF constraints, and OpenLane/chipIgnite configuration files for SKY130 implementation. This ensures that any participant or community member can reproduce results, validate design choices, and extend the work for future research.  
+
+By embedding self-monitoring into Microwatt, this project bridges the gap between **research CPUs** and **production observability frameworks**, helping the open-source hardware ecosystem advance toward **transparent, self-diagnosing processors**. The result is a powerful educational and research tool that empowers developers to learn CPU internals, debug complex workloads, and accelerate innovation in the open computing era.
 
 ---
 
@@ -47,13 +45,19 @@ This proposal advances Microwatt into the era of **transparent, self-diagnosing 
 
 ---
 
-## 📦 Deliverables
-- RTL code for telemetry engine + Microwatt integration  
-- Testbenches for verification of counters and trace buffer  
-- C demo software for telemetry access  
-- Documentation of AI prompts used (if AI-assisted)  
-- Open-source GitHub repository (MIT/Apache 2.0 licensed)  
-- Screenshots + demo video showing project usage  
+## 📦 Deliverables (Aligned to Project Requirements)
+- **Short English Description:** This README contains the concise project summary and design overview.  
+- **Open-Source RTL & Integration:** VHDL/Verilog sources for the telemetry engine and Microwatt integration wrapper, published with **Apache-2.0** license.  
+- **OpenFrame Fit Artifacts:** Top-level OpenFrame user-project wrapper, IO/pin constraints, area/timing utilization reports, and a *fit/area report* demonstrating the design fits the OpenFrame User Project area.  
+- **Reproducible RTL Verification:** Self-contained testbenches (with Makefile/CIs or `scripts/run_sim.sh`), expected outputs, and waveform dumps; includes *golden logs* for pass/fail.  
+- **STA & SDF Collateral:** Timing constraints (`.sdc`), STA setup/hold reports, back-annotated **SDF** files, and simulation scripts showing SDF-annotated runs.  
+- **AI Usage Disclosure:** If AI was used, provide all prompts and session logs under `docs/ai/` (timestamps + context) as required.  
+- **Reproducible Physical Flow:** Complete **OpenLane/chipIgnite** configuration (`config.tcl`, `pin_order.cfg`, floorplan constraints), run scripts, and final run results (DRC/LVS/antenna/CTS/timing reports). Alternative open flows accepted if fully documented and reproducible.  
+- **SKY130 Compatibility:** Design targets **SKY130** standard-cell libraries; no custom cells required. Document used libraries and corners.  
+- **Precheck & Tapeout Proof:** ChipFoundry precheck pass logs and tapeout submission artifacts (manifests, checksums) included in `tapeout/`.  
+- **Demo Materials:** Screenshots and a **how-to / step-by-step** video link in `docs/demo/` demonstrating project creation and usage (may be used by ChipFoundry for promotion).  
+- **Software Examples:** Minimal C demo to read PMCs/trace via MMIO; optional UART/JTAG telemetry exporter.  
+- **Repo Repro Guide:** `docs/REPRODUCE.md` covering environment, Docker/conda image, exact commands, seeds, and expected outputs.
 
 ---
 
@@ -62,6 +66,20 @@ This proposal advances Microwatt into the era of **transparent, self-diagnosing 
 2. **Weeks 2–3 (Implementation):** Develop counters, registers, trace buffer  
 3. **Week 4 (Verification):** Run testbenches, integrate demo software  
 4. **Final Week:** Prepare repo, documentation, demo video  
+
+---
+
+## ✅ Requirements Compliance Checklist
+- [x] All content and prompts in **English**  
+- [x] **Short description** included (Abstract above)  
+- [x] Implementation **fits OpenFrame User Project area** (fit report provided)  
+- [x] VHDL/Verilog **may be coded by AI** (prompts/logs included if used)  
+- [x] **Testbenches** provided and reproducible; **STA/SDF** constraints & sims provided  
+- [x] **Open-source** repo with license and full reproduction materials  
+- [x] **OpenLane/chipIgnite** configs + **run results** (or documented open flow)  
+- [x] Implementable on **SKY130** std cells  
+- [x] **Precheck** pass and **tapeout** submission artifacts included  
+- [x] **Video + screenshots** documenting creation and usage, linked in repo  
 
 ---
 
@@ -75,10 +93,10 @@ This proposal advances Microwatt into the era of **transparent, self-diagnosing 
 ---
 
 ## 📄 License
-This project will be released under the **Apache 2.0 License** to ensure open-source adoption and community contributions.  
+Released under the **Apache 2.0 License** to ensure open-source adoption and community contributions.
 
 ---
 
 ## 👥 Contributors
-- **Team:** Transparent Self-Monitoring Microwatt  
-- Open for collaboration during the hackathon!  
+- **Naveen Kumar Senthil Kumar**  
+- **Dhirajzen Bagawath Geetha Kumaravel**
