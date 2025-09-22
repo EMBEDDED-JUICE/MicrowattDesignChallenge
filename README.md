@@ -69,20 +69,6 @@ By embedding self-monitoring into Microwatt, this project bridges the gap betwee
 
 ---
 
-## ✅ Requirements Compliance Checklist
-- [x] All content and prompts in **English**  
-- [x] **Short description** included (Abstract above)  
-- [x] Implementation **fits OpenFrame User Project area** (fit report provided)  
-- [x] VHDL/Verilog **may be coded by AI** (prompts/logs included if used)  
-- [x] **Testbenches** provided and reproducible; **STA/SDF** constraints & sims provided  
-- [x] **Open-source** repo with license and full reproduction materials  
-- [x] **OpenLane/chipIgnite** configs + **run results** (or documented open flow)  
-- [x] Implementable on **SKY130** std cells  
-- [x] **Precheck** pass and **tapeout** submission artifacts included  
-- [x] **Video + screenshots** documenting creation and usage, linked in repo  
-
----
-
 ## 📄 License
 Released under the **Apache 2.0 License** to ensure open-source adoption and community contributions.
 
