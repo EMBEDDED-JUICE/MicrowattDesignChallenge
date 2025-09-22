@@ -83,15 +83,6 @@ By embedding self-monitoring into Microwatt, this project bridges the gap betwee
 
 ---
 
-## 🏆 Judging Fit
-- **Documentation:** Clear repo structure, reproducible OpenLane flow  
-- **Prompt Documentation:** Full record of AI LLM prompts (if used)  
-- **Code Quality:** Modular, well-documented RTL  
-- **Verification:** Thorough test coverage  
-- **Technical Merit:** Extends Microwatt with an innovative monitoring subsystem  
-
----
-
 ## 📄 License
 Released under the **Apache 2.0 License** to ensure open-source adoption and community contributions.
 
